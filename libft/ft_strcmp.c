@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/20 12:57:40 by jjoo              #+#    #+#             */
-/*   Updated: 2020/11/27 18:44:07 by jjoo             ###   ########.fr       */
+/*   Created: 2020/11/27 17:58:07 by jjoo              #+#    #+#             */
+/*   Updated: 2020/11/27 17:58:15 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main(int argc, char*argv[], char *envp[])
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	t_info	info;
+	size_t	i;
 
-	(void)argc;
-	(void)argv;
-	init_info(&info);
-	signal(SIGINT, (void *)sigint_handler);
-	signal(SIGQUIT, (void *)sigquit_handler);
-	parse_env(&info, envp);
-	prompt(&info);
-	return (0);
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

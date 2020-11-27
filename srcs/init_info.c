@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/20 12:57:40 by jjoo              #+#    #+#             */
-/*   Updated: 2020/11/27 18:44:07 by jjoo             ###   ########.fr       */
+/*   Created: 2020/11/27 16:43:50 by jjoo              #+#    #+#             */
+/*   Updated: 2020/11/27 17:09:04 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char*argv[], char *envp[])
+void			init_info(t_info *info)
 {
-	t_info	info;
-
-	(void)argc;
-	(void)argv;
-	init_info(&info);
-	signal(SIGINT, (void *)sigint_handler);
-	signal(SIGQUIT, (void *)sigquit_handler);
-	parse_env(&info, envp);
-	prompt(&info);
-	return (0);
+	ft_bzero(info, sizeof(t_info));
 }
