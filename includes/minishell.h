@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2020/11/27 18:39:32 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/05 21:06:16 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,19 @@
 # include "libft.h"
 # include "get_next_line.h"
 
-# define MAX_PATH_LENGTH 10000
+# define MAX_PATH_LENGTH	10000
+# define MAX_STR			10000
+
+# define ASC_NEW_LINE		10
+
+# define NL_BACKSLASH		(1 << 0)
+# define NL_EOF				(1 << 1)
+
+typedef struct	s_token
+{
+	char			c;
+	struct s_token	*next;
+}				t_token;
 
 typedef struct	s_env
 {
@@ -43,6 +55,8 @@ typedef struct	s_info
 	t_env	*env;
 	char	pwd[MAX_PATH_LENGTH];
 	char	oldpwd[MAX_PATH_LENGTH];
+	char	input[MAX_STR];
+	int		input_len;
 }				t_info;
 
 void			init_info(t_info *info);
@@ -52,5 +66,6 @@ void			sigint_handler(int signo);
 void			sigquit_handler(int signo);
 
 void			prompt(t_info *info);
+void			tokenize(t_info *info);
 
 #endif

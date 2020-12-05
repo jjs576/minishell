@@ -6,7 +6,7 @@
 #    By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/20 12:58:35 by jjoo              #+#    #+#              #
-#    Updated: 2020/11/21 14:31:17 by jjoo             ###   ########.fr        #
+#    Updated: 2020/12/05 01:56:46 by jjoo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	minishell
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 SRCS	=	$(wildcard srcs/*.c)
-INCS	=	-I includes -I libft -I ft_printf/includes -I get_next_line
+INCS	=	-I includes -I libft -I ft_printf/includes
 OBJS	=	$(SRCS:.c=.o)
 LIBFT	=	libft/libft.a
 PRINTF	=	ft_printf/libftprintf.a
