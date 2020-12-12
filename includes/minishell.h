@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/11 21:34:34 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/12 18:31:13 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define TK_DQOUTE			(1 << 0)
 # define TK_QOUTE			(1 << 1)
 # define TK_PIPE			(1 << 2)
-# define TK_SCOLON			(1 << 3)
+# define TK_BACKSLASH		(1 << 3)
 
 typedef struct	s_token
 {
@@ -44,10 +44,10 @@ typedef struct	s_token
 }				t_token;
 
 t_token			*token_new(char *str);
-t_token			*token_last(t_token **head);
-void			token_update(t_token **head, char *key, char *value);
-void			token_delete(t_token **head, char *str);
+t_token			*token_last(t_token *head);
+void			token_update(t_token *last, char *str);
 void			token_push_back(t_token **head, char *str);
+void			token_delete(t_token **head, char *str);
 
 typedef struct	s_env
 {

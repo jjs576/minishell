@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 18:02:09 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/11 14:30:23 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/12 15:37:24 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ static char	check_new_line(char *str)
 
 	len = ft_strlen(str);
 	flag = 0;
-	if (str[len - 1] == '\\' && !(len > 1 && str[len - 2] == '\\'))
-		flag |= NL_BACKSLASH;
-	if (flag & NL_BACKSLASH)
-		str[len - 1] = 0;
+	while (str[len-- - 1] == '\\')
+		flag ^= NL_BACKSLASH;
 	return (flag);
 }
 
@@ -54,7 +52,11 @@ void		prompt(t_info *info)
 		gnl_ret = get_next_line(0, &raw_input);
 		ft_strlcat(info->input, raw_input, MAX_STR);
 		if (gnl_ret == RETURN_LINE)
+		{
 			flag = check_new_line(raw_input);
+			if (flag & NL_BACKSLASH)
+				info->input[ft_strlen(info->input) - 1] = 0;
+		}
 		else if(gnl_ret == RETURN_EOF)
 			flag = check_eof(info->input + info->input_len);
 		if (gnl_ret == RETURN_LINE)

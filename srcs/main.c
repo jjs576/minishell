@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:57:40 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/11 16:12:54 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/12 16:35:19 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int main(int argc, char*argv[], char *envp[])
 {
 	t_info	info;
 
+	t_token	*token;
 	(void)argc;
 	(void)argv;
 	init_info(&info);
@@ -28,6 +29,11 @@ int main(int argc, char*argv[], char *envp[])
 		info.input_len = 0;
 		prompt(&info);
 		tokenize(&info);
+		token = info.token;
+		while (token){
+			ft_printf("%s\n", token->str);
+			token = token->next;
+		}
 	}
 	return (0);
 }
