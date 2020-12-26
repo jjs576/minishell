@@ -6,52 +6,65 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:05:31 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/26 18:49:25 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/27 00:50:08 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void tokenize_quote(t_info *info, char cur ,int *flag, char *str)
+static void tokenize_quote(t_info *info, char cur, int *flag, char *str)
 {
 	if (cur == '\'')
 	{
 		if (*flag & TK_DQOUTE)
 			token_update(token_last(info->token), str);
+		else if ((*flag & TK_QOUTE) && (*flag & TK_BS_IN_QUOTE))
+			token_update(token_last(info->token), str);
 		else
-		{
 			*flag ^= TK_QOUTE;
-			token_push_back(&info->token, "");
-		}
 	}
 	else if (cur == '\"')
 	{
 		if (*flag & TK_QOUTE)
 			token_update(token_last(info->token), str);
+		else if ((*flag & TK_DQOUTE) && (*flag & TK_BS_IN_QUOTE))
+		{
+			*flag &= ~TK_BS_IN_QUOTE;
+			token_update(token_last(info->token), "\b");
+			token_update(token_last(info->token), str);
+		}
+		else
+			*flag ^= TK_DQOUTE;
+	}
+}
+
+static void tokenize_symbol(t_info *info, char cur, int *flag, char *str)
+{
+	if (*flag & (TK_QOUTE | TK_DQOUTE))
+	{
+		if (cur == '\\')
+			*flag |= TK_BS_IN_QUOTE;
+		else
+			*flag &= ~TK_BS_IN_QUOTE;
+		token_update(token_last(info->token), str);
+	}
+	else
+	{
+		if (cur == '\\')
+		{
+			if (*flag & TK_BACKSLASH)
+				token_update(token_last(info->token), str);
+			*flag ^= TK_BACKSLASH;
+		}
 		else
 		{
-			*flag ^= TK_DQOUTE;
+			if (cur == '|')
+				token_push_back(&info->token, str);
 			token_push_back(&info->token, "");
 		}
 	}
 }
 
-static void tokenize_space_bs(t_info *info, char cur ,int *flag, char *str)
-{
-	if (cur == '\\')
-	{
-		if (*flag & TK_BACKSLASH)
-			token_update(token_last(info->token), str);
-		*flag ^= TK_BACKSLASH;
-	}
-	else if (cur == ' ')
-	{
-		if (*flag & (TK_QOUTE | TK_DQOUTE))
-			token_update(token_last(info->token), str);
-		else
-			token_push_back(&info->token, "");
-	}
-}
 static void	tokenize_delete_empty_token(t_info *info)
 {
 	int		len;
@@ -83,11 +96,12 @@ void 		tokenize(t_info *info)
 		temp_char[0] = info->input[i];
 		if (ft_strchr("\'\"", info->input[i]))
 			tokenize_quote(info, info->input[i], &flag, temp_char);
-		else if (ft_strchr(" \\", info->input[i]))
-			tokenize_space_bs(info, info->input[i], &flag, temp_char);
+		else if (ft_strchr(" \\|;", info->input[i]))
+			tokenize_symbol(info, info->input[i], &flag, temp_char);
 		else
 		{
 			flag &= ~TK_BACKSLASH;
+			flag &= ~TK_BS_IN_QUOTE;
 			token_update(token_last(info->token), temp_char);
 		}
 	}

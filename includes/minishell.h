@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/26 18:49:27 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/26 20:09:24 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define TK_QOUTE			(1 << 1)
 # define TK_PIPE			(1 << 2)
 # define TK_BACKSLASH		(1 << 3)
+# define TK_BS_IN_QUOTE		(1 << 4)
 
 typedef struct	s_token
 {
