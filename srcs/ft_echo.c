@@ -6,12 +6,12 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 22:35:28 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/27 00:55:12 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/27 16:47:23 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void ft_echo(t_info *s, t_cmd cmd)
 {
 	int	i;
@@ -40,3 +40,4 @@ void ft_echo(t_info *s, t_cmd cmd)
 	exit(0);
 }
 
+*/

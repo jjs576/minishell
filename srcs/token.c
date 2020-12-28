@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 00:07:15 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/12 18:37:08 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/27 22:25:37 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_token			*token_new(char *str)
 
 	new_token = ft_calloc(1, sizeof(t_token));
 	new_token->str = ft_strdup(str);
+	new_token->length = ft_strlen(new_token->str);
 	return (new_token);
 }
 
@@ -38,6 +39,7 @@ void			token_update(t_token *token, char *str)
 		return ;
 	temp = token->str;
 	token->str = ft_strjoin(token->str, str);
+	token->length = ft_strlen(token->str);
 	if (temp)
 		free(temp);
 }

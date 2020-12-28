@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:44:58 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/05 16:24:46 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/27 16:39:50 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
-
 
 # ifndef OPEN_MAX
 #  define OPEN_MAX 256

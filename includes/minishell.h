@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/26 20:09:24 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/28 15:58:58 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define MAX_PATH_LENGTH	10000
 # define MAX_STR			10000
+# define MAX_COMMAND		100
 
 # define ASC_NEW_LINE		10
 
@@ -37,10 +38,14 @@
 # define TK_BACKSLASH		(1 << 3)
 # define TK_BS_IN_QUOTE		(1 << 4)
 
+# define CMD_PIPE			(1 << 0);
+# define CMD_SEMIC			(1 << 1);
+
 typedef struct	s_token
 {
 	char			*str;
 	int				flag;
+	int				length;
 	struct s_token	*next;
 }				t_token;
 
@@ -63,14 +68,31 @@ void			env_update(t_env **head, char *key, char *value);
 void			env_delete(t_env **head, char *key);
 void			env_push_back(t_env **head, char *key, char *value);
 
+typedef struct	s_command
+{
+	int					argc;
+	char 				argv[MAX_STR][MAX_STR];
+	int					flag;
+	int					fd_read;
+	int					fd_write;
+	struct s_command	*next;
+}				t_command;
+
+t_command		*cmd_new();
+void			cmd_update(t_command *cmd, char *str);
+t_command		*cmd_last(t_command *head);
+void			cmd_push_back(t_command **head);
+
 typedef struct	s_info
 {
-	t_env	*env;
-	t_token	*token;
-	char	pwd[MAX_PATH_LENGTH];
-	char	oldpwd[MAX_PATH_LENGTH];
-	char	input[MAX_STR];
-	int		input_len;
+	t_env		*env;
+	t_token		*token;
+	t_command	*cmd;
+	char		pwd[MAX_PATH_LENGTH];
+	char		oldpwd[MAX_PATH_LENGTH];
+	char		input[MAX_STR];
+	int			input_len;
+	int			command_num;
 }				t_info;
 
 void			init_info(t_info *info);
@@ -81,5 +103,6 @@ void			sigquit_handler(int signo);
 
 void			prompt(t_info *info);
 void			tokenize(t_info *info);
+void			token_to_command(t_info *info);
 
 #endif

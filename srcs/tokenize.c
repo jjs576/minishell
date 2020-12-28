@@ -6,32 +6,34 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:05:31 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/27 00:50:08 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/27 22:27:43 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void tokenize_quote(t_info *info, char cur, int *flag, char *str)
+static void tokenize_quote(t_info *i, char cur, int *flag, char *str)
 {
 	if (cur == '\'')
 	{
 		if (*flag & TK_DQOUTE)
-			token_update(token_last(info->token), str);
+			token_update(token_last(i->token), str);
 		else if ((*flag & TK_QOUTE) && (*flag & TK_BS_IN_QUOTE))
-			token_update(token_last(info->token), str);
+		{
+			*flag &= ~TK_BS_IN_QUOTE;
+			token_last(i->token)->str[token_last(i->token)->length - 1] = cur;
+		}
 		else
 			*flag ^= TK_QOUTE;
 	}
 	else if (cur == '\"')
 	{
 		if (*flag & TK_QOUTE)
-			token_update(token_last(info->token), str);
+			token_update(token_last(i->token), str);
 		else if ((*flag & TK_DQOUTE) && (*flag & TK_BS_IN_QUOTE))
 		{
 			*flag &= ~TK_BS_IN_QUOTE;
-			token_update(token_last(info->token), "\b");
-			token_update(token_last(info->token), str);
+			token_last(i->token)->str[token_last(i->token)->length - 1] = cur;
 		}
 		else
 			*flag ^= TK_DQOUTE;
@@ -58,7 +60,7 @@ static void tokenize_symbol(t_info *info, char cur, int *flag, char *str)
 		}
 		else
 		{
-			if (cur == '|')
+			if (cur == ';' || cur == '|')
 				token_push_back(&info->token, str);
 			token_push_back(&info->token, "");
 		}
