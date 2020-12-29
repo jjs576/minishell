@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/28 15:58:58 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/29 14:44:12 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "libft.h"
 # include "get_next_line.h"
 
-# define MAX_PATH_LENGTH	10000
-# define MAX_STR			10000
+# define MAX_PATH_LENGTH	1000
+# define MAX_STR			1000
 # define MAX_COMMAND		100
 
 # define ASC_NEW_LINE		10
