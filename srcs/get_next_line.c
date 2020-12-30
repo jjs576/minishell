@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:46:06 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/05 19:30:02 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/29 23:11:05 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int		get_next_line(int fd, char **line)
 			break ;
 		save[count++] = buf[0];
 		save[count] = 0;
-
 	}
 	temp = ft_calloc(count + 1, sizeof(char));
 	ft_memcpy(temp, save, count);

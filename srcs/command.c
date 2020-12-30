@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:31:19 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/28 15:59:14 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/30 22:11:24 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_command		*cmd_new()
 {
-	t_command *new_cmd;
+	t_command	*new_cmd;
 
 	new_cmd = ft_calloc(1, sizeof(t_command));
 	return (new_cmd);

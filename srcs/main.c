@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:57:40 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/28 16:09:34 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/30 22:15:04 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main(int argc, char *argv[], char *envp[])
 {
 	t_info	info;
 	t_command *c;
-
+	int i;
 	(void)argc;
 	(void)argv;
 	init_info(&info);
@@ -28,12 +28,17 @@ int main(int argc, char *argv[], char *envp[])
 		ft_bzero(&info.input, MAX_STR);
 		info.input_len = 0;
 		prompt(&info);
+		replace_input(&info);
 		tokenize(&info);
 		token_to_command(&info);
 		c = info.cmd;
 		while (c)
 		{
-			ft_printf("%d %s\n",c->flag, c->argv[0]);
+			i = -1;
+			ft_printf("%d", c->argc);
+			while (++i < c->argc)
+				ft_printf(" %s", c->argv[i]);
+			ft_printf("\n");
 			c = c->next;
 		}
 	}

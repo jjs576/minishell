@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/29 14:44:12 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/30 21:35:37 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct	s_info
 	char		input[MAX_STR];
 	int			input_len;
 	int			command_num;
+	int			returned;
 }				t_info;
 
 void			init_info(t_info *info);
@@ -102,6 +103,7 @@ void			sigint_handler(int signo);
 void			sigquit_handler(int signo);
 
 void			prompt(t_info *info);
+void			replace_input(t_info *info);
 void			tokenize(t_info *info);
 void			token_to_command(t_info *info);
 
