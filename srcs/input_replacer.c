@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 20:21:19 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/30 22:22:57 by jjoo             ###   ########.fr       */
+/*   Updated: 2020/12/30 22:35:30 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_env	*find_env(t_info *info, char *str)
 
 	size = -1;
 	while (str[++size])
-		if (str[size] == ' ')
+		if (ft_strchr(" \'\"|;",str[size]))
 			break ;
 	sliced = ft_substr(str, 0, size);
 	ret = env_search(&info->env, sliced);
