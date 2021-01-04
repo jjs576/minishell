@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_parser.c                                       :+:      :+:    :+:   */
+/*   env_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 16:40:54 by jjoo              #+#    #+#             */
-/*   Updated: 2020/11/27 18:47:33 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/04 19:19:14 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse_env(t_info *info, char *envp[])
+void		parse_env(t_info *info, char *envp[])
 {
 	int		i;
 	int		j;
@@ -39,4 +39,43 @@ void	parse_env(t_info *info, char *envp[])
 		free(key);
 		free(value);
 	}
+}
+
+static int	get_env_len(t_env *env)
+{
+	int	n;
+
+	n = 0;
+	while (env)
+	{
+		if (env->value)
+			n += 1;
+		env = env->next;
+	}
+	return (n);
+}
+
+char		**get_env_array(t_info *info)
+{
+	int		len;
+	t_env	*env;
+	char	**ret;
+
+	env = info->env;
+	len = get_env_len(env);
+	ret = ft_calloc(len + 1, sizeof(char*));
+	len = 0;
+	while (env)
+	{
+		if (env->value)
+		{
+			ret[len] = ft_calloc(
+				ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
+			ft_strlcat(ret[len], env->key, MAX_STR);
+			ft_strlcat(ret[len], "=", MAX_STR);
+			ft_strlcat(ret[len], env->value, MAX_STR);
+		}
+		env = env->next;
+	}
+	return (ret);
 }

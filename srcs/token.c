@@ -6,18 +6,19 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 00:07:15 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/27 22:25:37 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/05 00:09:42 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token			*token_new(char *str)
+t_token			*token_new(char *str, int flag)
 {
 	t_token		*new_token;
 
 	new_token = ft_calloc(1, sizeof(t_token));
 	new_token->str = ft_strdup(str);
+	new_token->flag = flag;
 	new_token->length = ft_strlen(new_token->str);
 	return (new_token);
 }
@@ -44,18 +45,18 @@ void			token_update(t_token *token, char *str)
 		free(temp);
 }
 
-void			token_push_back(t_token **head, char *str)
+void			token_push_back(t_token **head, char *str, int flag)
 {
 	t_token		*token;
 
 	if (!*head)
-		*head = token_new(str);
+		*head = token_new(str, flag);
 	else
 	{
 		token = *head;
 		while (token->next)
 			token = token->next;
-		token->next = token_new(str);
+		token->next = token_new(str, flag);
 	}
 }
 

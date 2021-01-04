@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/30 21:35:37 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/05 00:07:41 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <fcntl.h>
 # include <dirent.h>
 # include <signal.h>
+# include <errno.h>
+# include <stdio.h>
 
 # include "ft_printf.h"
 # include "libft.h"
@@ -27,32 +29,38 @@
 # define MAX_STR			1000
 # define MAX_COMMAND		100
 
-# define ASC_NEW_LINE		10
+# define STDIN				0
+# define STDOUT				1
 
-# define NL_BACKSLASH		(1 << 0)
-# define NL_EOF				(1 << 1)
+# define NL_BACKSLASH		0x00000001
+# define NL_EOF				0x00000002
 
-# define TK_DQOUTE			(1 << 0)
-# define TK_QOUTE			(1 << 1)
-# define TK_PIPE			(1 << 2)
-# define TK_BACKSLASH		(1 << 3)
-# define TK_BS_IN_QUOTE		(1 << 4)
+# define TK_DQOUTE			0x00000001
+# define TK_QOUTE			0x00000002
+# define TK_PIPE			0x00000004
+# define TK_BACKSLASH		0x00000008
+# define TK_BS_IN_QUOTE		0x00000010
+# define TK_REDIR			0x00000020
 
-# define CMD_PIPE			(1 << 0);
-# define CMD_SEMIC			(1 << 1);
+
+# define CMD_PIPE			0x00000001
+# define CMD_END			0x00000002
+# define CMD_INPUT			0x00000004
+# define CMD_TRUNC			0x00000008
+# define CMD_APPEND			0x00000010
 
 typedef struct	s_token
 {
 	char			*str;
-	int				flag;
 	int				length;
+	int				flag;
 	struct s_token	*next;
 }				t_token;
 
-t_token			*token_new(char *str);
+t_token			*token_new(char *str, int flag);
 t_token			*token_last(t_token *head);
 void			token_update(t_token *last, char *str);
-void			token_push_back(t_token **head, char *str);
+void			token_push_back(t_token **head, char *str, int flag);
 void			token_delete(t_token **head, char *str);
 
 typedef struct	s_env
@@ -73,8 +81,7 @@ typedef struct	s_command
 	int					argc;
 	char 				argv[MAX_STR][MAX_STR];
 	int					flag;
-	int					fd_read;
-	int					fd_write;
+	char				file[2][MAX_STR];
 	struct s_command	*next;
 }				t_command;
 
@@ -94,10 +101,15 @@ typedef struct	s_info
 	int			input_len;
 	int			command_num;
 	int			returned;
+	int			in;
+	int			out;
+	pid_t		pid;
+	int			exit;
 }				t_info;
 
 void			init_info(t_info *info);
 void			parse_env(t_info *info, char *envp[]);
+char			**get_env_array(t_info *info);
 
 void			sigint_handler(int signo);
 void			sigquit_handler(int signo);
@@ -106,5 +118,5 @@ void			prompt(t_info *info);
 void			replace_input(t_info *info);
 void			tokenize(t_info *info);
 void			token_to_command(t_info *info);
-
+void			execute(t_info *info);
 #endif

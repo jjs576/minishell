@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:05:31 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/27 22:27:43 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/05 00:09:00 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,18 @@ static void tokenize_symbol(t_info *info, char cur, int *flag, char *str)
 		else
 		{
 			if (cur == ';' || cur == '|')
-				token_push_back(&info->token, str);
-			token_push_back(&info->token, "");
+				token_push_back(&info->token, str, 0);
+			if (cur == '<' || cur == '>')
+				token_push_back(&info->token, str, TK_REDIR);
+			token_push_back(&info->token, "", 0);
 		}
 	}
 }
 
-static void	tokenize_delete_empty_token(t_info *info)
+static void tokenize_delete_empty_token(t_info *info)
 {
-	int		len;
-	t_token	*token;
+	int len;
+	t_token *token;
 
 	len = 0;
 	token = info->token;
@@ -83,7 +85,35 @@ static void	tokenize_delete_empty_token(t_info *info)
 		token_delete(&info->token, "");
 }
 
-void 		tokenize(t_info *info)
+static void tokenize_merge_redirect_symbol(t_info *info)
+{
+	t_token *token;
+	t_token *next;
+	char *temp;
+
+	token = info->token;
+	while (token)
+	{
+		if (token->flag & TK_REDIR)
+		{
+			next = token->next;
+			while (next && token->flag == next->flag)
+			{
+				temp = ft_strjoin(token->str, token->next->str);
+				free(token->str);
+				token->str = temp;
+				token->length = ft_strlen(token->str);
+				free(token->next->str);
+				token->next = next->next;
+				free(next);
+				next = token->next;
+			}
+		}
+		token = token->next;
+	}
+}
+
+void tokenize(t_info *info)
 {
 	int i;
 	int flag;
@@ -92,22 +122,22 @@ void 		tokenize(t_info *info)
 	i = -1;
 	temp_char[1] = 0;
 	flag = 0;
-	info->token = token_new("");
+	info->token = token_new("", 0);
 	while (info->input[++i])
 	{
 		temp_char[0] = info->input[i];
 		if (ft_strchr("\'\"", info->input[i]))
 			tokenize_quote(info, info->input[i], &flag, temp_char);
-		else if (ft_strchr(" \\|;", info->input[i]))
+		else if (ft_strchr(" \\|;<>", info->input[i]))
 			tokenize_symbol(info, info->input[i], &flag, temp_char);
 		else
 		{
-			flag &= ~TK_BACKSLASH;
-			flag &= ~TK_BS_IN_QUOTE;
+			flag &= (~TK_BACKSLASH & ~TK_BS_IN_QUOTE);
 			token_update(token_last(info->token), temp_char);
 		}
 	}
 	if (flag & (TK_DQOUTE | TK_QOUTE))
 		ft_printf("syntax error\n");
 	tokenize_delete_empty_token(info);
+	tokenize_merge_redirect_symbol(info);
 }
