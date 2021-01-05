@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/05 00:07:41 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/05 21:29:03 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@
 # define TK_BACKSLASH		0x00000008
 # define TK_BS_IN_QUOTE		0x00000010
 # define TK_REDIR			0x00000020
-
+# define TK_END				0x00000040
 
 # define CMD_PIPE			0x00000001
 # define CMD_END			0x00000002
 # define CMD_INPUT			0x00000004
 # define CMD_TRUNC			0x00000008
 # define CMD_APPEND			0x00000010
+# define CMD_ERROR			0x00000020
 
 typedef struct	s_token
 {
@@ -81,7 +82,7 @@ typedef struct	s_command
 	int					argc;
 	char 				argv[MAX_STR][MAX_STR];
 	int					flag;
-	char				file[2][MAX_STR];
+	char				fd[2];
 	struct s_command	*next;
 }				t_command;
 
@@ -118,5 +119,6 @@ void			prompt(t_info *info);
 void			replace_input(t_info *info);
 void			tokenize(t_info *info);
 void			token_to_command(t_info *info);
+void			handle_fd(t_info *info);
 void			execute(t_info *info);
 #endif

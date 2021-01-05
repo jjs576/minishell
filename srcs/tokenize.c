@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:05:31 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/05 13:13:13 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/05 13:27:41 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void tokenize_symbol(t_info *info, char cur, int *flag, char *str)
 		token_update(token_last(info->token), str);
 	}
 	else
-	{
 		if (cur == '\\')
 		{
 			if (*flag & TK_BACKSLASH)
@@ -52,13 +51,14 @@ static void tokenize_symbol(t_info *info, char cur, int *flag, char *str)
 		}
 		else
 		{
-			if (cur == ';' || cur == '|')
-				token_push_back(&info->token, str, 0);
-			if (cur == '<' || cur == '>')
+			if (cur == ';')
+				token_push_back(&info->token, str, TK_END);
+			else if (cur == '|')
+				token_push_back(&info->token, str, TK_PIPE);
+			else if (cur == '<' || cur == '>')
 				token_push_back(&info->token, str, TK_REDIR);
 			token_push_back(&info->token, "", 0);
 		}
-	}
 }
 
 static void tokenize_delete_empty_token(t_info *info)

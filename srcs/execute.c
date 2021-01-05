@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/30 22:29:37 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/04 19:20:52 by jjoo             ###   ########.fr       */
+/*   Created: 2021/01/05 21:18:28 by jjoo              #+#    #+#             */
+/*   Updated: 2021/01/05 21:21:57 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-static int	is_builtin(t_info *info, t_command *cmd)
+
+int		is_builtin(t_info *info, t_command *cmd)
 {
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
 		ft_echo(info, cmd);
@@ -33,7 +33,7 @@ static int	is_builtin(t_info *info, t_command *cmd)
 	return (1);
 }
 
-static void	execute_bin(t_info *info, t_command *cmd)
+void	execute_bin(t_info *info, t_command *cmd)
 {
 	char	**envp;
 	char	*path;
@@ -43,18 +43,3 @@ static void	execute_bin(t_info *info, t_command *cmd)
 
 }
 
-void		execute(t_info *info)
-{
-	t_command	*cmd;
-	int			pipefd[2];
-	pid_t		pid;
-
-	cmd = info->cmd;
-	while (cmd)
-	{
-
-
-		cmd = cmd->next;
-	}
-}
-*/

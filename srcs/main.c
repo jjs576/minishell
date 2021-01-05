@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:57:40 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/04 21:48:40 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/05 21:27:17 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int main(int argc, char *argv[], char *envp[])
 		replace_input(&info);
 		tokenize(&info);
 		token_to_command(&info);
+		handle_fd(&info);
 		//execute(&info);
 		c = info.cmd;
 		while (c)
