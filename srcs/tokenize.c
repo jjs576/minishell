@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:05:31 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/05 00:09:00 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/05 13:13:13 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,22 @@
 
 static void tokenize_quote(t_info *i, char cur, int *flag, char *str)
 {
-	if (cur == '\'')
+	if (*flag & TK_BACKSLASH)
+		token_update(token_last(i->token), str);
+	else if ((cur == '\'' && *flag & TK_DQOUTE) ||
+		(cur == '\"' && *flag & TK_QOUTE))
+		token_update(token_last(i->token), str);
+	else if (cur == '\"' && (*flag & TK_DQOUTE) && (*flag & TK_BS_IN_QUOTE))
 	{
-		if (*flag & TK_DQOUTE)
-			token_update(token_last(i->token), str);
-		else if ((*flag & TK_QOUTE) && (*flag & TK_BS_IN_QUOTE))
-		{
-			*flag &= ~TK_BS_IN_QUOTE;
-			token_last(i->token)->str[token_last(i->token)->length - 1] = cur;
-		}
-		else
-			*flag ^= TK_QOUTE;
+		*flag &= ~TK_BS_IN_QUOTE;
+		token_last(i->token)->str[token_last(i->token)->length - 1] = cur;
 	}
-	else if (cur == '\"')
-	{
-		if (*flag & TK_QOUTE)
-			token_update(token_last(i->token), str);
-		else if ((*flag & TK_DQOUTE) && (*flag & TK_BS_IN_QUOTE))
-		{
-			*flag &= ~TK_BS_IN_QUOTE;
-			token_last(i->token)->str[token_last(i->token)->length - 1] = cur;
-		}
+	else
+		if (cur == '\'')
+			*flag ^= TK_QOUTE;
 		else
 			*flag ^= TK_DQOUTE;
-	}
+	*flag &= (~TK_BACKSLASH & ~TK_BS_IN_QUOTE);
 }
 
 static void tokenize_symbol(t_info *info, char cur, int *flag, char *str)
