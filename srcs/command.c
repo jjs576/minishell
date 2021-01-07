@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:31:19 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/30 22:11:24 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/07 20:21:36 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_command		*cmd_new()
 	t_command	*new_cmd;
 
 	new_cmd = ft_calloc(1, sizeof(t_command));
+	new_cmd->fd_in = -1;
+	new_cmd->fd_out = -1;
 	return (new_cmd);
 }
 
@@ -46,5 +48,30 @@ void			cmd_push_back(t_command **head)
 		while (cmd->next)
 			cmd = cmd->next;
 		cmd->next = cmd_new();
+	}
+}
+
+void			cmd_delete_redir(t_command **head)
+{
+	t_command	*cmd;
+	t_command	*erase;
+
+	cmd = *head;
+	if (cmd->flag & (CMD_APPEND | CMD_INPUT | CMD_TRUNC))
+	{
+		*head = (*head)->next;
+		free(cmd);
+		return ;
+	}
+	while (cmd->next)
+	{
+		if (cmd->next && cmd->next->flag & (CMD_APPEND | CMD_INPUT | CMD_TRUNC))
+		{
+			erase = cmd->next;
+			cmd->next = cmd->next->next;
+			free(erase);
+			return ;
+		}
+		cmd = cmd->next;
 	}
 }

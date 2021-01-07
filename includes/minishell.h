@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/05 21:29:03 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/07 21:57:47 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <errno.h>
 # include <stdio.h>
+# include <sys/wait.h>
 
 # include "ft_printf.h"
 # include "libft.h"
@@ -82,7 +83,9 @@ typedef struct	s_command
 	int					argc;
 	char 				argv[MAX_STR][MAX_STR];
 	int					flag;
-	char				fd[2];
+	int					fd_in;
+	int					fd_out;
+	pid_t				pid;
 	struct s_command	*next;
 }				t_command;
 
@@ -90,6 +93,7 @@ t_command		*cmd_new();
 void			cmd_update(t_command *cmd, char *str);
 t_command		*cmd_last(t_command *head);
 void			cmd_push_back(t_command **head);
+void			cmd_delete_redir(t_command **head);
 
 typedef struct	s_info
 {
@@ -102,10 +106,7 @@ typedef struct	s_info
 	int			input_len;
 	int			command_num;
 	int			returned;
-	int			in;
-	int			out;
-	pid_t		pid;
-	int			exit;
+	pid_t		pid[MAX_COMMAND];
 }				t_info;
 
 void			init_info(t_info *info);
@@ -121,4 +122,7 @@ void			tokenize(t_info *info);
 void			token_to_command(t_info *info);
 void			handle_fd(t_info *info);
 void			execute(t_info *info);
+
+void			fd_close(int fd);
+
 #endif
