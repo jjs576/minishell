@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/07 21:57:47 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/14 23:35:08 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stdlib.h>
+# include <string.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <dirent.h>
@@ -21,6 +22,8 @@
 # include <errno.h>
 # include <stdio.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 
 # include "ft_printf.h"
 # include "libft.h"
@@ -81,7 +84,7 @@ void			env_push_back(t_env **head, char *key, char *value);
 typedef struct	s_command
 {
 	int					argc;
-	char 				argv[MAX_STR][MAX_STR];
+	char 				**argv;
 	int					flag;
 	int					fd_in;
 	int					fd_out;
@@ -107,9 +110,9 @@ typedef struct	s_info
 	int			command_num;
 	int			returned;
 	pid_t		pid[MAX_COMMAND];
+	int			pipefd[MAX_COMMAND][2];
 }				t_info;
 
-void			init_info(t_info *info);
 void			parse_env(t_info *info, char *envp[]);
 char			**get_env_array(t_info *info);
 
@@ -123,6 +126,19 @@ void			token_to_command(t_info *info);
 void			handle_fd(t_info *info);
 void			execute(t_info *info);
 
-void			fd_close(int fd);
+void			close_fd(int fd);
+void			free_2d(char **p);
+void			init_info(t_info *info);
+void			clear_info(t_info *info);
+
+void			connect_fd(t_command *cmd, int fd[MAX_COMMAND][2], int index);
+void			wait_forked(t_info *info);
+
+void			print_error(char *cmd, int error);
+
+
+void			ft_echo(t_info *info, t_command *cmd);
+void			ft_pwd(t_info *info);
+
 
 #endif
