@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:05:31 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 21:46:10 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/17 00:04:20 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ static void	tokenize_quote(t_info *i, char cur, int *flag, char *str)
 
 static void	tokenize_symbol(t_info *info, char cur, int *flag, char *str)
 {
-	if (*flag & (TK_QOUTE | TK_DQOUTE))
+	if (*flag & TK_QOUTE)
 	{
 		if (cur == '\\')
-			*flag |= TK_BS_IN_QUOTE;
+			*flag ^= TK_BS_IN_QUOTE;
 		else
 			*flag &= ~TK_BS_IN_QUOTE;
 		token_update(token_last(info->token), str);
