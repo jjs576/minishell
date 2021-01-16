@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:09:14 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 13:57:21 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 14:17:34 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		ft_cd(t_info *info, t_command *cmd)
 	char	buf[MAX_PATH_LENGTH];
 	char	pwd[MAX_PATH_LENGTH];
 
+	ft_bzero(buf, MAX_PATH_LENGTH);
 	ft_strlcat(pwd, env_search(&info->env, "PWD")->value, MAX_PATH_LENGTH);
 	if (cmd->argc == 1)
 		ft_strlcat(buf, "~", MAX_STR);
