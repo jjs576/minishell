@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 18:21:16 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 21:44:01 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 
 # define INFO_WAITING		0x00000001
 # define INFO_EXIT			0x00000002
+# define INFO_DONT_EXEC		0x00000004
 
 typedef struct	s_token
 {

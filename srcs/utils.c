@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 19:05:37 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 20:33:33 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 21:45:02 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	clear_info(t_info *info)
 	t_command	*temp_cmd;
 	t_command	*cmd;
 
+	info->status &= ~INFO_DONT_EXEC;
 	token = info->token;
 	while (token)
 	{

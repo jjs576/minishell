@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:18:01 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 20:38:22 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 21:45:18 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ void		token_to_command(t_info *info)
 		flag = 0;
 		if (cur_token->flag & (TK_PIPE | TK_END | TK_REDIR))
 			if ((flag = get_command_flag(cur_token)) & CMD_ERROR)
+			{
 				ft_putendl_fd("sh: syntax error near unexpected token", 2);
+				info->returned = 258;
+				info->status |= INFO_DONT_EXEC;
+			}
 		if (flag && !(flag & CMD_ERROR))
 		{
 			if (flag & CMD_END)

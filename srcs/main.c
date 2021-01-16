@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:57:40 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 20:06:06 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 21:44:21 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	main(int argc, char *argv[], char *envp[])
 		tokenize(&info);
 		token_to_command(&info);
 		handle_fd(&info);
-		execute(&info);
+		if (!(info.status & INFO_DONT_EXEC))
+			execute(&info);
 		clear_info(&info);
 	}
 	return (info.exit_return);
