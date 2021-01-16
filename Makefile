@@ -6,14 +6,20 @@
 #    By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/20 12:58:35 by jjoo              #+#    #+#              #
-#    Updated: 2020/12/05 01:56:46 by jjoo             ###   ########.fr        #
+#    Updated: 2021/01/16 18:03:44 by jjoo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
-SRCS	=	$(wildcard srcs/*.c)
+SRCS	=	srcs/command.c srcs/env_manager.c srcs/env.c srcs/error.c\
+			srcs/execute_utils.c srcs/execute.c srcs/fd_handler.c\
+			srcs/ft_cd.c srcs/ft_echo.c srcs/ft_env.c srcs/ft_exit.c\
+			srcs/ft_export.c srcs/ft_pwd.c srcs/ft_unset.c srcs/get_next_line.c\
+			srcs/input_replacer.c srcs/main.c srcs/prompt.c\
+			srcs/signal_handler.c srcs/token_to_command.c srcs/token.c\
+			srcs/tokenize.c srcs/utils.c
 INCS	=	-I includes -I libft -I ft_printf/includes
 OBJS	=	$(SRCS:.c=.o)
 LIBFT	=	libft/libft.a

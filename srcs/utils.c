@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 19:05:37 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 12:20:55 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 17:59:20 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_info(t_info *info)
 	ft_bzero(info, sizeof(t_info));
 	info->in = dup(STDIN);
 	info->out = dup(STDOUT);
+	ft_memset(info->pipefd, -1, sizeof(MAX_COMMAND * 2));
 }
 
 void	init_info_input(t_info *info)

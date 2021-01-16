@@ -6,13 +6,13 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:05:31 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/05 13:27:41 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 17:07:21 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void tokenize_quote(t_info *i, char cur, int *flag, char *str)
+static void	tokenize_quote(t_info *i, char cur, int *flag, char *str)
 {
 	if (*flag & TK_BACKSLASH)
 		token_update(token_last(i->token), str);
@@ -32,7 +32,7 @@ static void tokenize_quote(t_info *i, char cur, int *flag, char *str)
 	*flag &= (~TK_BACKSLASH & ~TK_BS_IN_QUOTE);
 }
 
-static void tokenize_symbol(t_info *info, char cur, int *flag, char *str)
+static void	tokenize_symbol(t_info *info, char cur, int *flag, char *str)
 {
 	if (*flag & (TK_QOUTE | TK_DQOUTE))
 	{
@@ -61,7 +61,7 @@ static void tokenize_symbol(t_info *info, char cur, int *flag, char *str)
 		}
 }
 
-static void tokenize_delete_empty_token(t_info *info)
+static void	tokenize_delete_empty_token(t_info *info)
 {
 	int len;
 	t_token *token;
@@ -77,7 +77,7 @@ static void tokenize_delete_empty_token(t_info *info)
 		token_delete(&info->token, "");
 }
 
-static void tokenize_merge_redirect_symbol(t_info *info)
+static void	tokenize_merge_redirect_symbol(t_info *info)
 {
 	t_token *token;
 	t_token *next;
@@ -105,7 +105,7 @@ static void tokenize_merge_redirect_symbol(t_info *info)
 	}
 }
 
-void tokenize(t_info *info)
+void		tokenize(t_info *info)
 {
 	int i;
 	int flag;

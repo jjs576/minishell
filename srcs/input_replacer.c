@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 20:21:19 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/30 22:35:30 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 17:33:49 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_env	*find_env(t_info *info, char *str)
 	return (ret);
 }
 
-void		replace_input(t_info *info)
+void		replace_input(t_info *in)
 {
 	char	ret[MAX_STR];
 	int		i;
@@ -38,23 +38,23 @@ void		replace_input(t_info *info)
 
 	i = -1;
 	ret[0] = 0;
-	while (info->input[++i])
-		if (info->input[i] == '$' && info->input[i + 1] && info->input[i + 1] != ' ')
+	while (in->input[++i])
+		if (in->input[i] == '$' && in->input[i + 1] && in->input[i + 1] != ' ')
 		{
-			if (info->input[i + 1] == '?')
+			if (in->input[i + 1] == '?')
 			{
 				i += 1;
-				ft_strlcat(ret, ft_itoa(info->returned), MAX_STR);
+				ft_strlcat(ret, ft_itoa(in->returned), MAX_STR);
 			}
 			else
 			{
-				found_env = find_env(info, &info->input[i + 1]);
+				found_env = find_env(in, &in->input[i + 1]);
 				i += ft_strlen(found_env->key);
 				ft_strlcat(ret, found_env->value, MAX_STR);
 			}
 		}
 		else
-			ft_strlcat(ret, ft_substr(info->input, i, 1), MAX_STR);
-	ft_bzero(info->input, info->input_len);
-	ft_strlcat(info->input, ret, MAX_STR);
+			ft_strlcat(ret, ft_substr(in->input, i, 1), MAX_STR);
+	ft_bzero(in->input, in->input_len);
+	ft_strlcat(in->input, ret, MAX_STR);
 }

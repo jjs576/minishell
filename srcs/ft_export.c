@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 20:09:59 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 15:03:00 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 17:14:10 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void		ft_export(t_info *info, t_command *cmd)
 	{
 		while (++i < cmd->argc)
 		{
-
 			str = ft_split(cmd->argv[1], '=');
 			if (!is_valid_key(str[0]))
 			{

@@ -6,28 +6,28 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 22:29:37 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 14:01:14 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 17:20:54 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	handle_redir(t_command *cmd, t_command *redir)
+static void	handle_redir(t_command *cmd, t_command *rdir)
 {
-	if (redir->flag == CMD_INPUT)
+	if (rdir->flag == CMD_INPUT)
 	{
 		close_fd(cmd->fd_in);
-		cmd->fd_in = open(redir->argv[0], O_RDONLY | O_CREAT);
+		cmd->fd_in = open(rdir->argv[0], O_RDONLY | O_CREAT, 0644);
 	}
-	else if (redir->flag == CMD_TRUNC)
+	else if (rdir->flag == CMD_TRUNC)
 	{
 		close_fd(cmd->fd_out);
-		cmd->fd_out = open(redir->argv[0], O_CREAT | O_WRONLY | O_TRUNC);
+		cmd->fd_out = open(rdir->argv[0], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	}
-	else if (redir->flag == CMD_APPEND)
+	else if (rdir->flag == CMD_APPEND)
 	{
 		close_fd(cmd->fd_out);
-		cmd->fd_out = open(redir->argv[0], O_CREAT | O_WRONLY | O_APPEND);
+		cmd->fd_out = open(rdir->argv[0], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	}
 }
 
