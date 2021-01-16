@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 22:29:37 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/13 20:43:52 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 14:01:14 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void		handle_fd(t_info *info)
 	t_command	*redir;
 	int			i;
 
+	i = 0;
 	cmd = info->cmd;
 	while (cmd)
 	{
