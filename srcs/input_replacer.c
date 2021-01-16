@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 20:21:19 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 18:18:10 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 21:30:19 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void			replace_input(t_info *in)
 	char	ret[MAX_STR];
 	int		i;
 	t_env	*found_env;
+	char	*temp;
 
 	i = -1;
 	ret[0] = 0;
@@ -54,7 +55,11 @@ void			replace_input(t_info *in)
 			}
 		}
 		else
-			ft_strlcat(ret, ft_substr(in->input, i, 1), MAX_STR);
+		{
+			temp = ft_substr(in->input, i, 1);
+			ft_strlcat(ret, temp, MAX_STR);
+			free(temp);
+		}
 	ft_bzero(in->input, in->input_len);
 	ft_strlcat(in->input, ret, MAX_STR);
 }
