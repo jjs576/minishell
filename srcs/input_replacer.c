@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 20:21:19 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 22:20:42 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 22:41:28 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void			replace_input(t_info *in)
 				i += (ft_strlcat(ret, ft_itoa(in->returned), MAX_STR)) % 1 | 1;
 			else
 			{
-				i += ft_strlen(find_env(in, &in->input[i + 1])->key);
 				ft_strlcat(ret, find_env(in, &in->input[i + 1])->value, 1000);
+				i += ft_strlen(find_env(in, &in->input[i + 1])->key);
 			}
 		}
 		else
