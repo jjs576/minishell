@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 20:11:02 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/15 20:13:10 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 14:34:37 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 
 void	ft_env(t_info *info, t_command *cmd)
 {
-	(void)info;
-	(void)cmd;
+	t_env	*env;
+
+	env = info->env;
+	if (cmd->argc > 1)
+	{
+		ft_putstr_fd("env: '", 2);
+		ft_putstr_fd(cmd->argv[1], 2);
+		ft_putstr_fd("': No such file or directory\n", 2);
+
+		exit(127);
+	}
+	while (env)
+	{
+		if (env->value != 0)
+			ft_printf("%s=%s\n", env->key, env->value);
+		env = env->next;
+	}
+	exit(0);
 }

@@ -6,24 +6,38 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 20:09:59 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/15 20:11:28 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 15:03:00 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	print_export(t_env *env)
+static void	print_export(t_env *env)
 {
 	while (env)
 	{
 		if (env->value == NULL)
-			ft_printf("declare -x %s \n", env->key);
+			ft_printf("declare -x %s\n", env->key);
 		else
 			ft_printf("declare -x %s=\"%s\"\n", env->key, env->value);
 		env = env->next;
 	}
+}
 
-	return //뭐로 해놧니?
+static int	is_valid_key(char *key)
+{
+	int	i;
+
+	i = 0;
+	if (ft_isdigit(key[i]))
+		return (0);
+	while (key[i])
+	{
+		if (ft_strchr("\\\'\"$&|; @!`", key[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void		ft_export(t_info *info, t_command *cmd)
@@ -32,18 +46,26 @@ void		ft_export(t_info *info, t_command *cmd)
 	int		i;
 
 	i = 0;
-	ft_bzero(buf, MAX_PATH_LENGTH);
 	if (cmd->argc == 1)
-		return (print_export(info->env));
+	{
+		info->returned = 0;
+		print_export(info->env);
+	}
 	else
 	{
-		//valid key값 해줘야된
 		while (++i < cmd->argc)
 		{
-			str = ft_split(argv[1], '=');
+
+			str = ft_split(cmd->argv[1], '=');
+			if (!is_valid_key(str[0]))
+			{
+				info->returned = 1;
+				free_2d(str);
+				continue ;
+			}
 			env_update(&info->env, str[0], str[1]);
-			free_2d(str); 
+			free_2d(str);
+			info->returned = 0;
 		}
 	}
-	//return 이랑 직전의 리턴값 넣는애에 넣어주기
 }
