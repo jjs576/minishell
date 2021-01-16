@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 21:18:28 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 22:17:26 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/17 00:15:09 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void			execute(t_info *info)
 		}
 		close_fd(info->pipefd[index - 1][0]);
 		close_fd(info->pipefd[index][1]);
+		if (cmd->flag & CMD_END)
+			wait_forked(info);
 		cmd = cmd->next;
 	}
-	wait_forked(info);
 }
