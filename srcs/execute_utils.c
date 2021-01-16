@@ -6,13 +6,13 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:20:57 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 13:30:55 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:21:06 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	connect_fd(t_command *cmd, int fd[MAX_COMMAND][2], int index)
+int		connect_fd(t_command *cmd, int fd[MAX_COMMAND][2], int index)
 {
 	if (index > 0)
 		dup2(fd[index - 1][0], STDIN);
@@ -22,6 +22,7 @@ void	connect_fd(t_command *cmd, int fd[MAX_COMMAND][2], int index)
 		dup2(cmd->fd_out, STDOUT);
 	if (cmd->fd_in != -1)
 		dup2(cmd->fd_in, STDIN);
+	return (1);
 }
 
 void	wait_forked(t_info *info)
@@ -30,7 +31,7 @@ void	wait_forked(t_info *info)
 	int			status;
 
 	cmd = info->cmd;
-	while (cmd && cmd->argc > 0 )
+	while (cmd && cmd->argc > 0)
 	{
 		info->status |= INFO_WAITING;
 		waitpid(cmd->pid, &status, 0);

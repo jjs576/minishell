@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 18:02:09 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 12:24:19 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:26:45 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		prompt(t_info *info)
 			if (flag & NL_BACKSLASH)
 				info->input[ft_strlen(info->input) - 1] = 0;
 		}
-		else if(gnl_ret == RETURN_EOF)
+		else if (gnl_ret == RETURN_EOF)
 			flag = check_eof(info->input + info->input_len);
 		if (gnl_ret == RETURN_LINE)
 			info->input_len = ft_strlen(info->input);

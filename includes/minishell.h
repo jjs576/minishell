@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 12:21:05 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:21:16 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void			env_push_back(t_env **head, char *key, char *value);
 typedef struct	s_command
 {
 	int					argc;
-	char 				**argv;
+	char				**argv;
 	int					flag;
 	int					fd_in;
 	int					fd_out;
@@ -139,11 +139,10 @@ void			init_info(t_info *info);
 void			init_info_input(t_info *info);
 void			clear_info(t_info *info);
 
-void			connect_fd(t_command *cmd, int fd[MAX_COMMAND][2], int index);
+int				connect_fd(t_command *cmd, int fd[MAX_COMMAND][2], int index);
 void			wait_forked(t_info *info);
 char			*get_correct_path(char *path, char *file);
 char			*get_absolute_path(t_info *info, t_command *cmd);
-
 
 void			print_error(char *cmd, int error);
 

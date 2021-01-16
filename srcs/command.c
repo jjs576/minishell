@@ -6,13 +6,13 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:31:19 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/14 22:59:24 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:26:23 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_command		*cmd_new()
+t_command		*cmd_new(void)
 {
 	t_command	*new_cmd;
 
@@ -45,6 +45,7 @@ t_command		*cmd_last(t_command *head)
 		head = head->next;
 	return (head);
 }
+
 void			cmd_push_back(t_command **head)
 {
 	t_command		*cmd;

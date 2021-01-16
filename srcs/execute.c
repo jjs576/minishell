@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 21:18:28 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 17:57:06 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:21:49 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void		execute_child(t_info *info, t_command *cmd)
 	}
 }
 
-void		execute(t_info *info)
+void			execute(t_info *info)
 {
 	t_command	*cmd;
 	pid_t		pid;
@@ -79,9 +79,8 @@ void		execute(t_info *info)
 		if (!execute_unforked_builtin(info, cmd))
 		{
 			pid = fork();
-			if (pid == 0)
+			if (pid == 0 && connect_fd(cmd, info->pipefd, index))
 			{
-				connect_fd(cmd, info->pipefd, index);
 				if (!execute_builtin(info, cmd))
 					execute_child(info, cmd);
 			}

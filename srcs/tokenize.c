@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:05:31 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 17:07:21 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:52:56 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ static void	tokenize_quote(t_info *i, char cur, int *flag, char *str)
 		token_last(i->token)->str[token_last(i->token)->length - 1] = cur;
 	}
 	else
+	{
 		if (cur == '\'')
 			*flag ^= TK_QOUTE;
 		else
 			*flag ^= TK_DQOUTE;
+	}
 	*flag &= (~TK_BACKSLASH & ~TK_BS_IN_QUOTE);
 }
 
@@ -41,24 +43,24 @@ static void	tokenize_symbol(t_info *info, char cur, int *flag, char *str)
 		else
 			*flag &= ~TK_BS_IN_QUOTE;
 		token_update(token_last(info->token), str);
+		return ;
+	}
+	if (cur == '\\')
+	{
+		if (*flag & TK_BACKSLASH)
+			token_update(token_last(info->token), str);
+		*flag ^= TK_BACKSLASH;
 	}
 	else
-		if (cur == '\\')
-		{
-			if (*flag & TK_BACKSLASH)
-				token_update(token_last(info->token), str);
-			*flag ^= TK_BACKSLASH;
-		}
-		else
-		{
-			if (cur == ';')
-				token_push_back(&info->token, str, TK_END);
-			else if (cur == '|')
-				token_push_back(&info->token, str, TK_PIPE);
-			else if (cur == '<' || cur == '>')
-				token_push_back(&info->token, str, TK_REDIR);
-			token_push_back(&info->token, "", 0);
-		}
+	{
+		if (cur == ';')
+			token_push_back(&info->token, str, TK_END);
+		else if (cur == '|')
+			token_push_back(&info->token, str, TK_PIPE);
+		else if (cur == '<' || cur == '>')
+			token_push_back(&info->token, str, TK_REDIR);
+		token_push_back(&info->token, "", 0);
+	}
 }
 
 static void	tokenize_delete_empty_token(t_info *info)

@@ -6,13 +6,13 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 22:35:28 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/12 13:51:15 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:22:12 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_echo(t_info *info, t_command *cmd)
+void	ft_echo(t_info *info, t_command *cmd)
 {
 	int	i;
 	int	flag;
@@ -39,4 +39,3 @@ void ft_echo(t_info *info, t_command *cmd)
 	info->returned = 0;
 	exit(0);
 }
-

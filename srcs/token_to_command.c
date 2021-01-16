@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:18:01 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 17:54:15 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:48:49 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		token_to_command(t_info *info)
 				cmd_last(info->cmd)->flag |= flag;
 			cmd_push_back(&info->cmd);
 			if (!(flag & CMD_END))
-			cmd_last(info->cmd)->flag |= flag;
+				cmd_last(info->cmd)->flag |= flag;
 		}
 		else
 			cmd_update(cmd_last(info->cmd), cur_token->str);

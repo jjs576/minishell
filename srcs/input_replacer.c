@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 20:21:19 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 17:33:49 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:18:10 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_env	*find_env(t_info *info, char *str)
 
 	size = -1;
 	while (str[++size])
-		if (ft_strchr(" \'\"|;",str[size]))
+		if (ft_strchr(" \'\"|;", str[size]))
 			break ;
 	sliced = ft_substr(str, 0, size);
 	ret = env_search(&info->env, sliced);
@@ -30,7 +30,7 @@ static t_env	*find_env(t_info *info, char *str)
 	return (ret);
 }
 
-void		replace_input(t_info *in)
+void			replace_input(t_info *in)
 {
 	char	ret[MAX_STR];
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 16:35:30 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/15 22:02:15 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:46:35 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,3 @@ void		signal_handler(int signo)
 	else if (signo == SIGQUIT)
 		sigquit(info);
 }
-

@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 16:40:54 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/04 19:19:14 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:48:15 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		parse_env(t_info *info, char *envp[])
 			{
 				key = ft_substr(envp[i], 0, j);
 				value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);
-				break;
+				break ;
 			}
 			j++;
 		}

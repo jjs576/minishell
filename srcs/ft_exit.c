@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:10:44 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 11:49:42 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:47:09 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	is_numeric_argument(char *s)
 	return (!ret);
 }
 
-void	ft_exit(t_info *info, t_command *cmd)
+void		ft_exit(t_info *info, t_command *cmd)
 {
 	ft_printf("exit\n", 2);
 	if (cmd->argc == 1)
