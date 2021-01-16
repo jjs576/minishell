@@ -61,5 +61,6 @@ void		prompt(t_info *info)
 			flag = check_eof(info->input + info->input_len);
 		if (gnl_ret == RETURN_LINE)
 			info->input_len = ft_strlen(info->input);
+		free(raw_input);
 	}
 }
