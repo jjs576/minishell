@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:57:40 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/13 23:41:18 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 13:31:30 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	(void)argv;
 	init_info(&info);
-	signal(SIGINT, (void *)sigint_handler);
-	signal(SIGQUIT, (void *)sigquit_handler);
+	signal_info(&info);
+	signal(SIGINT, (void *)signal_handler);
+	signal(SIGQUIT, (void *)signal_handler);
 	parse_env(&info, envp);
-	while (1)
+	while (!(info.status & INFO_EXIT))
 	{
-		ft_bzero(&info.input, MAX_STR);
-		info.input_len = 0;
+		init_info_input(&info);
 		prompt(&info);
 		replace_input(&info);
 		tokenize(&info);
@@ -34,5 +34,5 @@ int main(int argc, char *argv[], char *envp[])
 		execute(&info);
 		clear_info(&info);
 	}
-	return (0);
+	return (info.exit_return);
 }

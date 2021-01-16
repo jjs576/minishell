@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/14 23:35:08 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 12:21:05 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@
 # define CMD_TRUNC			0x00000008
 # define CMD_APPEND			0x00000010
 # define CMD_ERROR			0x00000020
+
+# define INFO_WAITING		0x00000001
+# define INFO_EXIT			0x00000002
 
 typedef struct	s_token
 {
@@ -103,12 +106,16 @@ typedef struct	s_info
 	t_env		*env;
 	t_token		*token;
 	t_command	*cmd;
+	int			in;
+	int			out;
 	char		pwd[MAX_PATH_LENGTH];
 	char		oldpwd[MAX_PATH_LENGTH];
 	char		input[MAX_STR];
 	int			input_len;
 	int			command_num;
 	int			returned;
+	int			status;
+	int			exit_return;
 	pid_t		pid[MAX_COMMAND];
 	int			pipefd[MAX_COMMAND][2];
 }				t_info;
@@ -116,8 +123,8 @@ typedef struct	s_info
 void			parse_env(t_info *info, char *envp[]);
 char			**get_env_array(t_info *info);
 
-void			sigint_handler(int signo);
-void			sigquit_handler(int signo);
+t_info			*signal_info(t_info *input);
+void			signal_handler(int signo);
 
 void			prompt(t_info *info);
 void			replace_input(t_info *info);
@@ -129,16 +136,23 @@ void			execute(t_info *info);
 void			close_fd(int fd);
 void			free_2d(char **p);
 void			init_info(t_info *info);
+void			init_info_input(t_info *info);
 void			clear_info(t_info *info);
 
 void			connect_fd(t_command *cmd, int fd[MAX_COMMAND][2], int index);
 void			wait_forked(t_info *info);
+char			*get_correct_path(char *path, char *file);
+char			*get_absolute_path(t_info *info, t_command *cmd);
+
 
 void			print_error(char *cmd, int error);
 
-
 void			ft_echo(t_info *info, t_command *cmd);
 void			ft_pwd(t_info *info);
-
+void			ft_cd(t_info *info, t_command *cmd);
+void			ft_exit(t_info *info, t_command *cmd);
+void			ft_unset(t_info *info, t_command *cmd);
+void			ft_export(t_info *info, t_command *cmd);
+void			ft_env(t_info *info, t_command *cmd);
 
 #endif

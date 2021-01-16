@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/14 23:35:15 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 13:22:11 by jjoo             ###   ########.fr       */
+/*   Created: 2021/01/15 20:10:44 by jjoo              #+#    #+#             */
+/*   Updated: 2021/01/15 20:15:10 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(t_info *info)
+void	ft_unset(t_info *info, t_command *cmd)
 {
-	ft_printf("%s\n", env_search(&info->env, "PWD")->value);
-	exit(0);
+	(void)info;
+	(void)cmd;
 }
-

@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 18:02:09 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/28 16:06:03 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 12:24:19 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void		prompt(t_info *info)
 	char	flag;
 
 	flag = NL_BACKSLASH;
-	ft_printf("sh");
+	ft_putstr_fd("sh", info->out);
 	while (flag)
 	{
 		if (flag & NL_BACKSLASH)
-			ft_printf("> ");
-		gnl_ret = get_next_line(0, &raw_input);
+			ft_putstr_fd("> ", info->out);
+		gnl_ret = get_next_line(info->in, &raw_input);
 		ft_strlcat(info->input, raw_input, MAX_STR);
 		if (gnl_ret == RETURN_LINE)
 		{

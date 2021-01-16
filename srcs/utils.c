@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 19:05:37 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/14 22:53:42 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 12:20:55 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ void	free_2d(char **p)
 void	init_info(t_info *info)
 {
 	ft_bzero(info, sizeof(t_info));
+	info->in = dup(STDIN);
+	info->out = dup(STDOUT);
+}
+
+void	init_info_input(t_info *info)
+{
+	ft_bzero(info->input, MAX_STR);
+	info->input_len = 0;
 }
 
 void	clear_info(t_info *info)
@@ -48,6 +56,7 @@ void	clear_info(t_info *info)
 		free(temp_token->str);
 		free(temp_token);
 	}
+	info->token = 0;
 	cmd = info->cmd;
 	while (cmd)
 	{
@@ -56,4 +65,5 @@ void	clear_info(t_info *info)
 		free_2d(temp_cmd->argv);
 		free(temp_cmd);
 	}
+	info->cmd = 0;
 }
