@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:05:31 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 18:52:56 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 20:16:00 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void		tokenize(t_info *info)
 		}
 	}
 	if (flag & (TK_DQOUTE | TK_QOUTE))
-		ft_printf("syntax error\n");
+		ft_putendl_fd("syntax error", 2);
 	tokenize_delete_empty_token(info);
 	tokenize_merge_redirect_symbol(info);
 }

@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 23:35:15 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 13:22:11 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 20:06:26 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,3 @@ void	ft_pwd(t_info *info)
 	ft_printf("%s\n", env_search(&info->env, "PWD")->value);
 	exit(0);
 }
-

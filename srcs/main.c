@@ -6,13 +6,13 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:57:40 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 18:47:00 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 20:06:06 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_info	info;
 
