@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 00:07:15 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/05 00:09:42 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 21:07:12 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,9 @@ void			token_update(t_token *token, char *str)
 	if (!token)
 		return ;
 	temp = token->str;
-	token->str = ft_strjoin(token->str, str);
+	token->str = ft_strjoin(temp, str);
+	free(temp);
 	token->length = ft_strlen(token->str);
-	if (temp)
-		free(temp);
 }
 
 void			token_push_back(t_token **head, char *str, int flag)

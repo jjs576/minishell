@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:05:31 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 20:21:06 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 20:42:31 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	tokenize_merge_redirect_symbol(t_info *info)
 	token = info->token;
 	while (token)
 	{
-		if (token->flag & TK_REDIR)
+		if (token->flag & (TK_REDIR | TK_END))
 		{
 			next = token->next;
 			while (next && token->flag == next->flag)
