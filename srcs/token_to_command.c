@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:18:01 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 20:15:16 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 20:20:13 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void		token_to_command(t_info *info)
 {
 	t_token	*cur_token;
 	int		flag;
+
 	cur_token = info->token;
 	info->cmd = cmd_new();
 	while (cur_token)

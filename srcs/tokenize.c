@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:05:31 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 20:16:00 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 20:21:06 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ static void	tokenize_symbol(t_info *info, char cur, int *flag, char *str)
 
 static void	tokenize_delete_empty_token(t_info *info)
 {
-	int len;
-	t_token *token;
+	int		len;
+	t_token	*token;
 
 	len = 0;
 	token = info->token;
@@ -81,9 +81,9 @@ static void	tokenize_delete_empty_token(t_info *info)
 
 static void	tokenize_merge_redirect_symbol(t_info *info)
 {
-	t_token *token;
-	t_token *next;
-	char *temp;
+	t_token	*token;
+	t_token	*next;
+	char	*temp;
 
 	token = info->token;
 	while (token)
@@ -109,9 +109,9 @@ static void	tokenize_merge_redirect_symbol(t_info *info)
 
 void		tokenize(t_info *info)
 {
-	int i;
-	int flag;
-	char temp_char[2];
+	int		i;
+	int		flag;
+	char	temp_char[2];
 
 	i = -1;
 	temp_char[1] = 0;
