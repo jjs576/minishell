@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 20:21:19 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 22:41:28 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 23:26:54 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_env	*find_env(t_info *info, char *str)
 
 	size = -1;
 	while (str[++size])
-		if (ft_strchr(" \'\"|;", str[size]))
+		if (ft_strchr("\\\'\"$&|; @!`?=", str[size]))
 			break ;
 	sliced = ft_substr(str, 0, size);
 	ret = env_search(&info->env, sliced);
@@ -30,31 +30,46 @@ static t_env	*find_env(t_info *info, char *str)
 	return (ret);
 }
 
-void			replace_input(t_info *in)
+static char		*replace_ev(t_info *info, char *ev, int *i)
+{
+	char	*ret;
+	t_env	*found;
+
+	if (!ft_strcmp(ev, "?"))
+	{
+		ret = ft_itoa(info->returned);
+		*i += ft_strlen(ret);
+		return (ret);
+	}
+	else
+	{
+		found = find_env(info, ev);
+		*i += ft_strlen(found->key);
+		return (ft_strdup(found->value));
+	}
+}
+
+void			replace_input(t_info *info)
 {
 	char	ret[MAX_STR];
 	int		i;
 	char	*temp;
+	int		flag;
 
+	flag = 1;
 	i = -1;
 	ret[0] = 0;
-	while (in->input[++i])
-		if (in->input[i] == '$' && in->input[i + 1] && in->input[i + 1] != ' ')
-		{
-			if (in->input[i + 1] == '?')
-				i += (ft_strlcat(ret, ft_itoa(in->returned), MAX_STR)) % 1 | 1;
-			else
-			{
-				ft_strlcat(ret, find_env(in, &in->input[i + 1])->value, 1000);
-				i += ft_strlen(find_env(in, &in->input[i + 1])->key);
-			}
-		}
+	while (info->input[++i])
+	{
+		if (info->input[i] == '\'')
+			flag ^= 1;
+		if (flag && info->input[i] == '$')
+			temp = replace_ev(info, &info->input[i + 1], &i);
 		else
-		{
-			temp = ft_substr(in->input, i, 1);
-			ft_strlcat(ret, temp, MAX_STR);
-			free(temp);
-		}
-	ft_bzero(in->input, in->input_len);
-	ft_strlcat(in->input, ret, MAX_STR);
+			temp = ft_substr(info->input, i, 1);
+		ft_strlcat(ret, temp, MAX_STR);
+		free(temp);
+	}
+	ft_bzero(info->input, info->input_len);
+	ft_strlcat(info->input, ret, MAX_STR);
 }
