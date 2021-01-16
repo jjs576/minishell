@@ -6,11 +6,10 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 19:05:37 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 20:18:38 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/16 20:33:33 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
 void	close_fd(int fd)
@@ -31,10 +30,17 @@ void	free_2d(char **p)
 
 void	init_info(t_info *info)
 {
+	int	i;
+
 	ft_bzero(info, sizeof(t_info));
 	info->in = dup(STDIN);
 	info->out = dup(STDOUT);
-	ft_memset(info->pipefd, -1, sizeof(MAX_COMMAND * 2));
+	i = -1;
+	while (++i < MAX_COMMAND)
+	{
+		info->pipefd[i][0] = -1;
+		info->pipefd[i][1] = -1;
+	}
 }
 
 void	init_info_input(t_info *info)
