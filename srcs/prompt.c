@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 18:02:09 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 22:37:19 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/17 12:26:44 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	check_eof(char *s)
 	flag = NL_EOF;
 	if (ft_strlen(s) == 0)
 	{
-		ft_printf("  \b\b\nexit\n");
+		ft_printf("  \b\bexit\n");
 		exit(0);
 	}
 	ft_printf("  \b\b");
