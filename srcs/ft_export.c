@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 20:09:59 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/17 12:12:58 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/17 12:19:03 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,20 @@ void		ft_export(t_info *info, t_command *cmd)
 	{
 		info->returned = 0;
 		print_export(info->env);
+		return ;
 	}
-	else
+	while (++i < cmd->argc)
 	{
-		while (++i < cmd->argc)
+		str = ft_split(cmd->argv[1], '=');
+		if (!is_valid_key(str[0]))
 		{
-			str = ft_split(cmd->argv[1], '=');
-			if (!is_valid_key(str[0]))
-			{
-				info->returned = 1;
-				print_export_error(cmd->argv[1]);
-				free_2d(str);
-				continue ;
-			}
-			env_update(&info->env, str[0], str[1]);
+			info->returned = 1;
+			print_export_error(cmd->argv[1]);
 			free_2d(str);
-			info->returned = 0;
+			continue ;
 		}
+		env_update(&info->env, str[0], str[1]);
+		free_2d(str);
+		info->returned = 0;
 	}
 }
