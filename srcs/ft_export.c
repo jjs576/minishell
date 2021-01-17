@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 20:09:59 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/17 11:24:30 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/17 12:12:58 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ static int	is_valid_key(char *key)
 	return (1);
 }
 
+static void	print_export_error(char *s)
+{
+	ft_putstr_fd("sh: export: \'", 2);
+	ft_putstr_fd(s, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+}
+
 void		ft_export(t_info *info, t_command *cmd)
 {
 	char	**str;
@@ -59,6 +66,7 @@ void		ft_export(t_info *info, t_command *cmd)
 			if (!is_valid_key(str[0]))
 			{
 				info->returned = 1;
+				print_export_error(cmd->argv[1]);
 				free_2d(str);
 				continue ;
 			}
