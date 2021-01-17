@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 21:18:28 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/17 00:15:09 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/17 11:22:28 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ static void		execute_child(t_info *info, t_command *cmd)
 	}
 }
 
+static void		close_pipe(t_info *info, int i)
+{
+	close_fd(info->pipefd[i - 1][0]);
+	close_fd(info->pipefd[i][1]);
+}
+
 void			execute(t_info *info)
 {
 	t_command	*cmd;
@@ -87,8 +93,7 @@ void			execute(t_info *info)
 			else
 				cmd->pid = pid;
 		}
-		close_fd(info->pipefd[index - 1][0]);
-		close_fd(info->pipefd[index][1]);
+		close_pipe(info, index);
 		if (cmd->flag & CMD_END)
 			wait_forked(info);
 		cmd = cmd->next;
