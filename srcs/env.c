@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 18:11:33 by jjoo              #+#    #+#             */
-/*   Updated: 2020/12/27 19:59:52 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/17 12:01:44 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	env_update(t_env **head, char *key, char *value)
 	{
 		if (env->value)
 			free(env->value);
-		env->value = ft_strdup(value);
+		if (value)
+			env->value = ft_strdup(value);
 	}
 }
 
