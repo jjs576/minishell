@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:58:02 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 21:44:01 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/18 12:04:46 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ char			*get_absolute_path(t_info *info, t_command *cmd);
 
 void			print_error(char *cmd, int error);
 
-void			ft_echo(t_info *info, t_command *cmd);
+void			ft_echo(t_command *cmd);
 void			ft_pwd(t_info *info);
 void			ft_cd(t_info *info, t_command *cmd);
 void			ft_exit(t_info *info, t_command *cmd);

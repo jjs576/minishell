@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:18:01 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 22:28:54 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/18 11:25:10 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ static int	get_command_flag(t_token *token)
 {
 	if (!ft_strcmp(token->str, "|"))
 		return (CMD_PIPE);
-	else if (!ft_strcmp(token->str, ";"))
+	else if (!ft_strncmp(token->str, ";", 1))
+	{
+		if (ft_strlen(token->str) > 1)
+			return (CMD_ERROR);
 		return (CMD_END);
-	else if (!ft_strcmp(token->str, ";;"))
-		return (CMD_ERROR);
+	}
 	else if (token->flag & TK_REDIR)
 	{
 		if (!ft_strcmp(token->str, "<"))

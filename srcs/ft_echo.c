@@ -6,26 +6,24 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 22:35:28 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 18:22:12 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/18 12:27:56 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(t_info *info, t_command *cmd)
+void	ft_echo(t_command *cmd)
 {
 	int	i;
 	int	flag;
 
 	flag = 1;
 	i = 1;
-	if (cmd->argc > 2)
+	while (cmd->argv[i] && (ft_strncmp(cmd->argv[i], "-", 1) == 0))
 	{
-		while (cmd->argv[i] && (ft_strcmp(cmd->argv[i], "-n") == 0))
-		{
+		if (ft_strchr(cmd->argv[i], 'n') != 0)
 			flag = 0;
-			i++;
-		}
+		i++;
 	}
 	while (cmd->argv[i])
 	{
@@ -36,6 +34,5 @@ void	ft_echo(t_info *info, t_command *cmd)
 	}
 	if (flag)
 		ft_printf("\n");
-	info->returned = 0;
 	exit(0);
 }

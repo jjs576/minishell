@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 21:18:28 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/17 11:22:28 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/18 12:04:55 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int		execute_unforked_builtin(t_info *info, t_command *cmd)
 static int		execute_builtin(t_info *info, t_command *cmd)
 {
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
-		ft_echo(info, cmd);
+		ft_echo(cmd);
 	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
 		ft_pwd(info);
 	else if (ft_strcmp(cmd->argv[0], "env") == 0)

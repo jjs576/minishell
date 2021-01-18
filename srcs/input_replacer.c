@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 20:21:19 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/16 23:26:54 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/18 12:20:47 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,16 @@ void			replace_input(t_info *info)
 	char	*temp;
 	int		flag;
 
-	flag = 1;
+	flag = 0;
 	i = -1;
 	ret[0] = 0;
 	while (info->input[++i])
 	{
-		if (info->input[i] == '\'')
-			flag ^= 1;
-		if (flag && info->input[i] == '$')
+		if (info->input[i] == '\'' && !(flag & TK_DQOUTE))
+			flag ^= TK_QOUTE;
+		if (info->input[i] == '\"' && !(flag & TK_QOUTE))
+			flag ^= TK_DQOUTE;
+		if (!(flag & TK_QOUTE) && info->input[i] == '$')
 			temp = replace_ev(info, &info->input[i + 1], &i);
 		else
 			temp = ft_substr(info->input, i, 1);
