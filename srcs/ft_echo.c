@@ -6,23 +6,35 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 22:35:28 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/18 12:27:56 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/18 23:30:52 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(t_command *cmd)
+static int	check_flag(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (s[i] != '-')
+		return (1);
+	while (s[++i])
+		if (s[i] != 'n')
+			return (1);
+	return (0);
+}
+
+void		ft_echo(t_command *cmd)
 {
 	int	i;
 	int	flag;
 
-	flag = 1;
 	i = 1;
-	while (cmd->argv[i] && (ft_strncmp(cmd->argv[i], "-", 1) == 0))
+	while (cmd->argv[i])
 	{
-		if (ft_strchr(cmd->argv[i], 'n') != 0)
-			flag = 0;
+		if ((flag = check_flag(cmd->argv[i])))
+			break ;
 		i++;
 	}
 	while (cmd->argv[i])
