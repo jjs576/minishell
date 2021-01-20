@@ -6,7 +6,7 @@
 /*   By: jjoo <jjoo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 22:35:28 by jjoo              #+#    #+#             */
-/*   Updated: 2021/01/18 23:30:52 by jjoo             ###   ########.fr       */
+/*   Updated: 2021/01/20 17:29:38 by jjoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static int	check_flag(char *s)
 
 	i = 0;
 	if (s[i] != '-')
-		return (1);
+		return (0);
 	while (s[++i])
 		if (s[i] != 'n')
-			return (1);
-	return (0);
+			return (0);
+	return (1);
 }
 
 void		ft_echo(t_command *cmd)
@@ -31,9 +31,10 @@ void		ft_echo(t_command *cmd)
 	int	flag;
 
 	i = 1;
-	while (cmd->argv[i])
+	flag = 0;
+	while (cmd->argv[i] && !ft_strncmp(cmd->argv[i], "-", 1))
 	{
-		if ((flag = check_flag(cmd->argv[i])))
+		if (!(flag |= check_flag(cmd->argv[i])))
 			break ;
 		i++;
 	}
@@ -44,7 +45,7 @@ void		ft_echo(t_command *cmd)
 			ft_printf(" ");
 		i++;
 	}
-	if (flag)
+	if (!flag)
 		ft_printf("\n");
 	exit(0);
 }
